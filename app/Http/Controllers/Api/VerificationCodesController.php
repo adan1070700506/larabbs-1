@@ -8,7 +8,17 @@ class VerificationCodesController extends Controller
 {
     public function store(VerificationCodeRequest $request)
     {
-        $phone = $request->phone;
+        $captcha_key = $request->captcha_key;
+        $captchaData = \Cache::get($captcha_key);
+        if(!$captchaData){
+            return $this->response->error('图片验证码已失效！',422);
+        }
+        if (!hash_equals($captchaData['code'], $request->captcha_code)) {
+            // 验证错误就清除缓存
+            \Cache::forget($request->captcha_key);
+            return $this->response->errorUnauthorized('验证码错误');
+        }
+        $phone = $captchaData['phone'];
 
         if(app()->environment() === 'local'){
             $code = '1234';
