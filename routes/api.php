@@ -34,6 +34,7 @@ $api->version('v1',[
         'limit' => config('api.rate_limits.sign.limit'),
         'expires' => config('api.rate_limits.sign.expires'),
     ],function($api){
+        
         $api->post('verificationCodes','VerificationCodesController@store')->name('api.verificationCodes.store');
         $api->post('users','UsersController@store')->name('api.users.store');
         $api->get('user','UsersController@me')->name('api.user.show');
@@ -43,6 +44,8 @@ $api->version('v1',[
             $api->get('user', 'UsersController@me')->name('api.user.show');
             $api->post('images', 'imagesController@store')->name('api.images.store');
             $api->patch('user', 'UsersController@update')->name('api.user.update');
+
+            $api->post('topics','TopicsController@store')->name('api.topics.store');
         });
     });
 
