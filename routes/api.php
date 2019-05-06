@@ -17,7 +17,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1',[
     'namespace' => 'App\Http\Controllers\Api',
-    'middleware' => 'serializer:array'
+    'middleware' => ['serializer:array','bindings']
 ], function($api) {
 
     $api->post('captchas', 'CaptchasController@store')->name('api.captchas.store');
@@ -39,6 +39,8 @@ $api->version('v1',[
         $api->post('users','UsersController@store')->name('api.users.store');
         $api->get('user','UsersController@me')->name('api.user.show');
 
+        $api->get('topics/{topic}', 'TopicsController@show')->name('api.topics.show');
+
         $api->group(['middleware' => 'api.auth'], function($api) {
             // 当前登录用户信息
             $api->get('user', 'UsersController@me')->name('api.user.show');
@@ -46,6 +48,7 @@ $api->version('v1',[
             $api->patch('user', 'UsersController@update')->name('api.user.update');
 
             $api->post('topics','TopicsController@store')->name('api.topics.store');
+            $api->patch('topics/{topic}', 'TopicsController@update')->name('api.topics.update');
         });
     });
 
