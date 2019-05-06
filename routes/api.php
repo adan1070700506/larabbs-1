@@ -28,6 +28,7 @@ $api->version('v1',[
     // 删除token
     $api->delete('authorizations/current', 'AuthorizationsController@destroy')->name('api.authorizations.destroy');
 
+    $api->get('categories', 'CategoriesController@index')->name('api.categories.index');
     $api->group([
         'middleware' => 'api.throttle',
         'limit' => config('api.rate_limits.sign.limit'),
@@ -35,7 +36,7 @@ $api->version('v1',[
     ],function($api){
         $api->post('verificationCodes','VerificationCodesController@store')->name('api.verificationCodes.store');
         $api->post('users','UsersController@store')->name('api.users.store');
-            $api->get('user','UsersController@me')->name('api.user.show');
+        $api->get('user','UsersController@me')->name('api.user.show');
 
         $api->group(['middleware' => 'api.auth'], function($api) {
             // 当前登录用户信息
