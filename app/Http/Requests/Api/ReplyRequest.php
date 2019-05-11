@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api;
 
-class AuthorizationRequest extends BaseRequest
+class ReplyRequest extends BaseRequest
 {
 
     /**
@@ -13,8 +13,7 @@ class AuthorizationRequest extends BaseRequest
     public function rules()
     {
         return [
-            'username' => 'required|string',
-            'password' => 'required|string|min:6',
+            'content' => 'required|min:2',
         ];
     }
 }
