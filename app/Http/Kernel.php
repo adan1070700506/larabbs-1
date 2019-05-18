@@ -24,6 +24,9 @@ class Kernel extends HttpKernel
 
         // 修正代理服务器后的服务器参数
         \App\Http\Middleware\TrustProxies::class,
+
+        //允许跨域请求
+        App\Http\Middleware\EnableCrossRequestMiddleware::class,
     ];
 
     // 定义中间件组
